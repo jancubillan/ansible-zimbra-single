@@ -6,7 +6,7 @@ This role automates the process of installing Zimbra Open Source Edition v8.8.15
 Requirements
 ------------
 
-1) Stati network configuration must be already configured on the server
+1) Static network configuration must be already configured on the server
 2) Install Ansible Engine via EPEL or Python PIP
 3) Run ansible-galaxy install jancubillan.ansible_zimbra_single
 
@@ -39,6 +39,4 @@ BSD
 Author Information
 ------------------
 
-Author: Jan Cubillan
-Github: https://github.com/jancubillan
-Ansible Galaxy: https://galaxy.ansible.com/jancubillan
+Author: Jan Cubillan\ Github: https://github.com/jancubillan\ Ansible Galaxy: https://galaxy.ansible.com/jancubillan
