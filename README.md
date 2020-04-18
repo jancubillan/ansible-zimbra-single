@@ -39,4 +39,6 @@ BSD
 Author Information
 ------------------
 
-Author: Jan Cubillan\ Github: https://github.com/jancubillan\ Ansible Galaxy: https://galaxy.ansible.com/jancubillan
+Author: Jan Cubillan\ 
+Github: https://github.com/jancubillan\ 
+Ansible Galaxy: https://galaxy.ansible.com/jancubillan
