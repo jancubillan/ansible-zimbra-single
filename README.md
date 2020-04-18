@@ -31,7 +31,6 @@ Example Playbook
 Copy the inventory and playbook at tests/inventory and tests/zimbra-single.yml. The playbook below should be similar.
 
     - hosts: server
-      become: yes
       roles:
          - jancubillan.ansible_zimbra_single
 
