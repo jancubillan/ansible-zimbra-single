@@ -4,6 +4,9 @@
     timezone:
       name: 'Asia/Manila'
 
+  - name: configure time sync
+    shell: timedatectl set-ntp true
+
   - name: restart chronyd
     service: 
       name: chronyd
