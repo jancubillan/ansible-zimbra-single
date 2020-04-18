@@ -39,7 +39,6 @@
         - lsof 
         - rsync 
         - nfs-utils
-        - NetworkManager-glib
       state: latest
 
   - name: perform update
