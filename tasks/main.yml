@@ -1,5 +1,11 @@
 ---
 # tasks file for ansible-zimbra-single
+  - name: configure chronyd
+    service:
+      name: chronyd
+      state: started
+      enabled: yes
+
   - name: configure time zone
     timezone:
       name: 'Asia/Manila'
