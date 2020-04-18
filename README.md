@@ -9,9 +9,10 @@ This role automates the process of installing Zimbra Open Source Edition v8.8.15
 Requirements
 ------------
 
-1) Static network configuration must be already configured on the server
-2) Install Ansible Engine via EPEL or Python PIP
-3) Run ansible-galaxy install jancubillan.ansible_zimbra_single
+1) Must be a fresh CentOS 7 minimal installation
+2) Static network configuration must be already set
+3) Install Ansible Engine via EPEL or Python PIP
+4) Run ansible-galaxy install jancubillan.ansible_zimbra_single
 
 Role Variables
 --------------
