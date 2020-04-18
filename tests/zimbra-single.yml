@@ -1,4 +1,5 @@
 ---
 - hosts: server
+  become: yes
   roles:
     - ansible-zimbra-single
