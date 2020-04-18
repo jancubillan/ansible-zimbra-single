@@ -1,5 +1,4 @@
 ---
 - hosts: server
-  become: yes
   roles:
     - jancubillan.ansible_zimbra_single
