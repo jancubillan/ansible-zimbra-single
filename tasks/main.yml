@@ -118,7 +118,6 @@
       name:
         - perl
         - net-tools
-        - libreoffice 
       state: latest
 
   - name: download zimbra installer
