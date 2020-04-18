@@ -34,6 +34,10 @@ Copy the inventory and playbook at tests/inventory and tests/zimbra-single.yml. 
       roles:
          - jancubillan.ansible_zimbra_single
 
+How to use:
+
+    # ansible-playbook -i inventory zimbra-single.yml
+
 License
 -------
 
