@@ -1,31 +1,35 @@
 Role Name
 =========
 
-A brief description of the role goes here.
+This role automates the process of installing Zimbra Open Source Edition v8.8.15 on CentOS 7.
 
 Requirements
 ------------
 
-Any pre-requisites that may not be covered by Ansible itself or the role should be mentioned here. For instance, if the role uses the EC2 module, it may be a good idea to mention in this section that the boto package is required.
+1) Stati network configuration must be already configured on the server
+2) Install Ansible Engine via EPEL or Python PIP
+3) Run ansible-galaxy install jancubillan.ansible_zimbra_single
 
 Role Variables
 --------------
 
-A description of the settable variables for this role should go here, including any variables that are in defaults/main.yml, vars/main.yml, and any variables that can/should be set via parameters to the role. Any variables that are read from other roles and/or the global scope (ie. hostvars, group vars, etc.) should be mentioned here as well.
+Modify the variables in vars/main.yml to suit your environment.
 
 Dependencies
 ------------
 
-A list of other roles hosted on Galaxy should go here, plus any details in regards to parameters that may need to be set for other roles, or variables that are used from other roles.
+1) Static Networking
+2) Ansible Engine
 
 Example Playbook
 ----------------
 
-Including an example of how to use your role (for instance, with variables passed in as parameters) is always nice for users too:
+Copy the inventory and playbook at tests/inventory and tests/zimbra-single.yml. The playbook below should be similar.
 
-    - hosts: servers
+    - hosts: server
+      become: yes
       roles:
-         - { role: username.rolename, x: 42 }
+         - jancubillan.ansible_zimbra_single
 
 License
 -------
@@ -35,4 +39,6 @@ BSD
 Author Information
 ------------------
 
-An optional section for the role authors to include contact information, or a website (HTML is not allowed).
+Author: Jan Cubillan
+Github: https://github.com/jancubillan
+Ansible Galaxy: https://galaxy.ansible.com/jancubillan
