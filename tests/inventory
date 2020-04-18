@@ -1,2 +1,6 @@
-localhost
+[all:vars] 
+ansible_user=root
+ansible_connection=local
 
+[server]
+localhost
