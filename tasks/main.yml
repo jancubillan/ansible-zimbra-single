@@ -30,7 +30,6 @@
   - name: install utilities
     yum:
       name: 
-        - vim 
         - bash-completion 
         - tmux 
         - telnet 
