@@ -1,2 +1,10 @@
 ---
 # vars file for ansible-zimbra-single
+zimbra_full_hostname: webmail.example.com
+zimbra_short_hostname: webmail
+zimbra_network_name: eth0
+zimbra_ip: 192.168.122.75
+zimbra_reverse_ip: 122.168.192
+zimbra_ptr: 75
+zimbra_subnet: 192.168.122.0/24
+zimbra_domain: example.com

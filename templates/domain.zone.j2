@@ -1,0 +1,11 @@
+$TTL 1D
+@	IN SOA	@ {{ zimbra_domain }}. (
+				2020041601	; serial
+					1D	; refresh
+					1H	; retry
+					1W	; expire
+					3H )	; minimum
+	NS	@
+	A	{{ zimbra_ip }}
+	MX	1	{{ zimbra_full_hostname }}.
+{{ zimbra_short_hostname }} A	{{ zimbra_ip }}

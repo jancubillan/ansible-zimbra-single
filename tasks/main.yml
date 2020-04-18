@@ -1,2 +1,142 @@
 ---
 # tasks file for ansible-zimbra-single
+  - name: configure time zone
+    timezone:
+      name: 'Asia/Manila'
+
+  - name: restart chronyd
+    service: 
+      name: chronyd
+      state: restarted
+
+  - name: configure hostname
+    hostname:
+      name: "{{ zimbra_full_hostname }}"
+
+  - name: configure hosts file
+    lineinfile:
+       line: "{{ zimbra_ip }} {{ zimbra_full_hostname }} {{ zimbra_short_hostname }}"
+       path: '/etc/hosts'
+
+  - name: install utilities
+    yum:
+      name: 
+        - vim 
+        - bash-completion 
+        - tmux 
+        - telnet 
+        - bind-utils 
+        - tcpdump 
+        - wget 
+        - lsof 
+        - rsync 
+        - nfs-utils
+        - NetworkManager-glib
+      state: latest
+
+  - name: perform update
+    yum:
+      name: '*'
+      state: latest
+
+  - name: configure firewall
+    firewalld:
+      port: "{{ item }}"
+      permanent: yes
+      state: enabled
+      immediate: yes
+    loop:
+    - 25/tcp
+    - 465/tcp
+    - 587/tcp
+    - 110/tcp
+    - 995/tcp
+    - 143/tcp
+    - 993/tcp
+    - 80/tcp
+    - 443/tcp
+    - 7071/tcp
+
+  - name: disable postfix
+    service:
+      name: postfix
+      state: stopped
+      enabled: no
+
+  - name: install bind
+    yum:
+      name: bind
+      state: latest
+
+  - name: configure named.conf
+    template:
+      src: named.conf.j2
+      dest: /etc/named.conf
+      owner: root
+      group: named
+      mode: 0640
+
+  - name: configure forward zone
+    template:
+      src: domain.zone.j2
+      dest: /var/named/{{ zimbra_domain }}.zone
+      owner: root
+      group: named
+      mode: 0640
+
+  - name: configure reverse zone
+    template:
+      src: domain.revzone.j2
+      dest: /var/named/{{ zimbra_domain }}.revzone
+      owner: root
+      group: named
+      mode: 0640
+
+  - name: start and enable named
+    service:
+      name: named
+      state: started
+      enabled: yes
+
+  - name: configure local dns
+    shell: >
+      nmcli con mod "{{ zimbra_network_name }}" ipv4.dns 127.0.0.1 &&
+      nmcli con reload &&
+      nmcli con up "{{ zimbra_network_name }}"
+
+  - name: install dependencies
+    yum:
+      name:
+        - perl
+        - net-tools
+        - libreoffice 
+      state: latest
+
+  - name: download zimbra installer
+    get_url:
+      url: https://files.zimbra.com/downloads/8.8.15_GA/zcs-8.8.15_GA_3869.RHEL7_64.20190918004220.tgz
+      dest: /root
+      checksum: sha256:https://files.zimbra.com/downloads/8.8.15_GA/zcs-8.8.15_GA_3869.RHEL7_64.20190918004220.tgz.sha256
+
+  - name: extract zimbra installer
+    unarchive:
+      src: zcs-8.8.15_GA_3869.RHEL7_64.20190918004220.tgz
+      dest: /root
+
+  - name: configure answer file
+    template:
+      src: answers.j2
+      dest: /tmp/answers.j2
+
+  - name: configure config file
+    template:
+      src: config.j2
+      dest: /tmp/config.j2
+
+  - name: run zimbra installer phase 1
+    shell: ./install.sh -s < /tmp/answers.j2
+    args:
+      chdir: zcs-8.8.15_GA_3869.RHEL7_64.20190918004220/
+
+  - name: run zimbra installer phase 2
+    shell: /opt/zimbra/libexec/zmsetup.pl -c /tmp/config.j2
