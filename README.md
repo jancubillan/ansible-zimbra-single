@@ -38,6 +38,10 @@ How to use:
 
     # ansible-playbook -i inventory zimbra-single.yml
 
+Reset Administrator password:
+
+    # zmprov sp admin@example.com mypassword
+
 License
 -------
 
