@@ -41,7 +41,7 @@ How to use:
 License
 -------
 
-BSD
+MIT License
 
 Author Information
 ------------------
