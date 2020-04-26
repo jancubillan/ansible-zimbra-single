@@ -137,6 +137,10 @@
       src: answers.j2
       dest: /tmp/answers.j2
 
+  - name: capture random chars
+    shell: date | md5sum | cut -c 1-9
+    register: zimbra_random_chars
+
   - name: configure config file
     template:
       src: config.j2
