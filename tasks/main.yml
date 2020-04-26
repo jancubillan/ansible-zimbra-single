@@ -8,7 +8,7 @@
 
   - name: configure time zone
     timezone:
-      name: 'Asia/Manila'
+      name: "{{ zimbra_timezone }}"
 
   - name: configure time sync
     shell: timedatectl set-ntp true
@@ -20,11 +20,11 @@
 
   - name: configure hostname
     hostname:
-      name: "{{ zimbra_full_hostname }}"
+      name: "{{ zimbra_fqdn }}"
 
   - name: configure hosts file
     lineinfile:
-       line: "{{ zimbra_ip }} {{ zimbra_full_hostname }} {{ zimbra_short_hostname }}"
+       line: "{{ zimbra_ip }} {{ zimbra_fqdn }} {{ zimbra_shortname }}"
        path: '/etc/hosts'
 
   - name: install utilities
@@ -38,7 +38,6 @@
         - wget 
         - lsof 
         - rsync 
-        - nfs-utils
       state: latest
 
   - name: perform update

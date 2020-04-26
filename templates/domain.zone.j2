@@ -7,5 +7,5 @@ $TTL 1D
 					3H )	; minimum
 	NS	@
 	A	{{ zimbra_ip }}
-	MX	1	{{ zimbra_full_hostname }}.
-{{ zimbra_short_hostname }} A	{{ zimbra_ip }}
+	MX	1	{{ zimbra_fqdn }}.
+{{ zimbra_shortname }}	A	{{ zimbra_ip }}

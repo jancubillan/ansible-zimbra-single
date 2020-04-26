@@ -11,8 +11,6 @@ Requirements
 
 1) Must be a fresh CentOS 7 minimal installation
 2) Static network configuration must be already set
-3) Install Ansible Engine via EPEL or Python PIP
-4) Run ansible-galaxy install jancubillan.ansible_zimbra_single
 
 Role Variables
 --------------
@@ -28,7 +26,7 @@ Dependencies
 Example Playbook
 ----------------
 
-Copy the inventory and playbook at tests/inventory and tests/zimbra-single.yml. The playbook below should be similar.
+Copy the inventory and playbook at tests/inventory and tests/site.yml. The playbook below should be similar.
 
     - hosts: server
       roles:
@@ -36,7 +34,7 @@ Copy the inventory and playbook at tests/inventory and tests/zimbra-single.yml. 
 
 How to use:
 
-    # ansible-playbook -i inventory zimbra-single.yml
+    # ansible-playbook -i inventory site.yml
 
 Reset Administrator password:
 
