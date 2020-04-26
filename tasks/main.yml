@@ -82,6 +82,10 @@
       group: named
       mode: 0640
 
+  - name: generate serial
+    shell: date +%Y%m%d01
+    register: zimbra_serial
+
   - name: configure forward zone
     template:
       src: domain.zone.j2

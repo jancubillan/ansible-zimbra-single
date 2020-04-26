@@ -1,6 +1,6 @@
 $TTL 1D
 @	IN SOA	@ {{ zimbra_domain }}. (
-				2020041601	; serial
+				{{ zimbra_serial['stdout'] }}	; serial
 					1D	; refresh
 					1H	; retry
 					1W	; expire
