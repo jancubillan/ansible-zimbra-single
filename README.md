@@ -1,6 +1,3 @@
-NOT FOR PRODUCTION USE
-======================
-
 ansible-zimbra-single
 =====================
 
