@@ -14,7 +14,7 @@
     shell: timedatectl set-ntp true
 
   - name: restart chronyd
-    service: 
+    service:
       name: chronyd
       state: restarted
 
@@ -29,21 +29,21 @@
 
   - name: install utilities
     yum:
-      name: 
-        - bash-completion 
-        - tmux 
-        - telnet 
-        - bind-utils 
-        - tcpdump 
-        - wget 
-        - lsof 
-        - rsync 
-      state: latest
+      name:
+        - bash-completion
+        - tmux
+        - telnet
+        - bind-utils
+        - tcpdump
+        - wget
+        - lsof
+        - rsync
+      state: present
 
   - name: perform update
     yum:
       name: '*'
-      state: latest
+      state: present
 
   - name: configure firewall
     firewalld:
@@ -72,7 +72,7 @@
   - name: install bind
     yum:
       name: bind
-      state: latest
+      state: present
 
   - name: configure named.conf
     template:
@@ -119,7 +119,7 @@
       name:
         - perl
         - net-tools
-      state: latest
+      state: present
 
   - name: download zimbra installer
     get_url:
