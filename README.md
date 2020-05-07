@@ -8,6 +8,7 @@ Requirements
 
 1) Must be a fresh CentOS 7 minimal installation
 2) Static network configuration must be already set
+3) This role will be pulled and run on the same server where Zimbra will be installed
 
 Role Variables
 --------------
@@ -23,19 +24,29 @@ Dependencies
 Example Playbook
 ----------------
 
-Copy the inventory and playbook at tests/inventory and tests/site.yml. The playbook below should be similar.
+Create an inventory file similar below:
 
+    # vi inventory
+
+    [all:vars]
+    ansible_user=root
+    ansible_connection=local
+
+    [server]
+    localhost
+
+Create playbook similar below:
+
+    # vi site.yml
+
+    --- 
     - hosts: server
       roles:
-         - jancubillan.ansible_zimbra_single
+        - jancubillan.ansible_zimbra_single
 
-How to use:
+Then run as follows:
 
     # ansible-playbook -i inventory site.yml
-
-Reset Administrator password:
-
-    # zmprov sp admin@example.com mypassword
 
 License
 -------
