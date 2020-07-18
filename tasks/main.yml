@@ -45,7 +45,7 @@
   - name: perform update
     yum:
       name: '*'
-      state: present
+      state: latest
 
   - name: configure firewall
     firewalld:
@@ -65,11 +65,16 @@
     - 443/tcp
     - 7071/tcp
 
+  - name: check postfix rpm
+    shell: rpm -q postfix
+    register: postfix_rpm
+
   - name: disable postfix
     service:
       name: postfix
       state: stopped
       enabled: no
+    when: postfix_rpm.rc == 0
 
   - name: install bind
     yum:
