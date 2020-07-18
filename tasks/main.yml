@@ -68,6 +68,7 @@
   - name: check postfix rpm
     shell: rpm -q postfix
     register: postfix_rpm
+    ignore_errors: yes
 
   - name: disable postfix
     service:
