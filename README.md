@@ -1,12 +1,12 @@
 ansible-zimbra-single
 =====================
 
-This role automates the process of installing single-server Zimbra Open Source Edition v8.8.15 on CentOS 7.
+This role automates the process of installing single-server Zimbra Open Source Edition v8.8.15 on CentOS 8.
 
 Requirements
 ------------
 
-1) Must be a fresh CentOS 7 minimal installation
+1) Must be a fresh CentOS 8 minimal installation
 2) Static network configuration must be already set
 3) This role will be pulled and run on the same server where Zimbra will be installed
 
