@@ -137,7 +137,7 @@
 
   - name: extract zimbra installer
     unarchive:
-      src: zcs-8.8.15_GA_3953.RHEL8_64.20200629025823.tgz
+      src: /root/zcs-8.8.15_GA_3953.RHEL8_64.20200629025823.tgz
       dest: /root
 
   - name: configure answer file
@@ -157,7 +157,7 @@
   - name: run zimbra installer phase 1
     shell: ./install.sh -s < /tmp/zimbra_answers.txt
     args:
-      chdir: zcs-8.8.15_GA_3953.RHEL8_64.20200629025823/
+      chdir: /root/zcs-8.8.15_GA_3953.RHEL8_64.20200629025823/
 
   - name: run zimbra installer phase 2
     shell: /opt/zimbra/libexec/zmsetup.pl -c /tmp/zimbra_answers.txt
