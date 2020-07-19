@@ -139,6 +139,7 @@
     unarchive:
       src: /root/zcs-8.8.15_GA_3953.RHEL8_64.20200629025823.tgz
       dest: /root
+      remote_src: yes
 
   - name: configure answer file
     template:
