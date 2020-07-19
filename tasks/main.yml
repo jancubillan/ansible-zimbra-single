@@ -150,6 +150,14 @@
     shell: date | md5sum | cut -c 1-9
     register: zimbra_random_chars
 
+  - name: capture mailboxd memory
+    shell: free -m | awk 'NR==2{printf "%.0f\n", $2*0.25 }'
+    register: zimbra_mailboxd_memory
+
+  - name: capture system memory
+    shell: free -h | awk 'NR==2{printf "%.0f\n", $2 }'
+    register: zimbra_system_memory
+
   - name: configure config file
     template:
       src: zimbra_config.txt.j2
