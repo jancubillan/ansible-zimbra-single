@@ -8,7 +8,6 @@ Requirements
 
 1) Must be a fresh CentOS 8 minimal installation
 2) Static network configuration must be already set
-3) This role will be pulled and run on the same server where Zimbra will be installed
 
 Role Variables
 --------------
@@ -28,19 +27,15 @@ Create an inventory file similar below:
 
     # vi inventory
 
-    [all:vars]
-    ansible_user=root
-    ansible_connection=local
-
-    [server]
-    localhost
+    [zimbra_single]
+    mail.example.com ansible_host=192.168.122.75
 
 Create playbook similar below:
 
     # vi site.yml
 
     --- 
-    - hosts: server
+    - hosts: zimbra_single
       roles:
         - jancubillan.ansible_zimbra_single
 

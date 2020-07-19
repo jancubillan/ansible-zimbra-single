@@ -3,7 +3,7 @@
 zimbra_timezone: Asia/Manila
 zimbra_fqdn: mail.example.com
 zimbra_shortname: mail
-zimbra_network_name: eth0
+zimbra_network_name: enp1s0
 zimbra_ip: 192.168.122.75
 zimbra_reverse_ip: 122.168.192
 zimbra_ptr: 75
