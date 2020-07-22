@@ -169,4 +169,4 @@
       chdir: /root/zcs-8.8.15_GA_3953.RHEL8_64.20200629025823/
 
   - name: run zimbra installer phase 2
-    shell: /opt/zimbra/libexec/zmsetup.pl -c /tmp/zimbra_answers.txt
+    shell: /opt/zimbra/libexec/zmsetup.pl -c /tmp/zimbra_config.txt
