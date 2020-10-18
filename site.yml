@@ -1,4 +1,0 @@
----
-- hosts: server
-  roles:
-    - jancubillan.ansible_zimbra_single

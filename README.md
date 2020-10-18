@@ -7,41 +7,40 @@ Requirements
 ------------
 
 1) Must be a fresh CentOS 8 minimal installation
-2) Static network configuration must be already set
+2) Ansible control node must have the "netaddr" Python module installed
+
+Installing Ansible and "netaddr" module using PIP
+-------------------------------------------------
+
+    # python3 -m pip install ansible
+    # python3 -m pip install netaddr
 
 Role Variables
 --------------
 
-Modify the variables in vars/main.yml to suit your environment.
-
-Dependencies
-------------
-
-1) Static Networking
-2) Ansible Engine
+    zimbra_timezone: Asia/Singapore
+    zimbra_fqdn: mail.example.com
+    zimbra_admin_password: ansible@zimbra2020
 
 Example Playbook
 ----------------
-
-Create an inventory file similar below:
-
-    # vi inventory
-
-    [zimbra_single]
-    mail.example.com ansible_host=192.168.122.75
 
 Create playbook similar below:
 
     # vi site.yml
 
     --- 
-    - hosts: zimbra_single
+    - hosts: zimbra
+      vars:
+        zimbra_timezone: Asia/Singapore
+        zimbra_fqdn: mail.example.com
+        zimbra_admin_password: ansible@zimbra2020
       roles:
-        - jancubillan.ansible_zimbra_single
+        - ansible-zimbra-single
 
 Then run as follows:
 
-    # ansible-playbook -i inventory site.yml
+    # ansible-playbook site.yml
 
 License
 -------
@@ -53,4 +52,3 @@ Author Information
 
 Author: Jan Cubillan<br/>
 GitHub: https://github.com/jancubillan<br/>
-Ansible Galaxy: https://galaxy.ansible.com/jancubillan
