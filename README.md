@@ -9,7 +9,7 @@ Requirements
 1) Must be a fresh CentOS 8 minimal installation
 2) Ansible control node must have the "netaddr" Python module installed
 
-    python3 -m pip install netaddr
+    # python3 -m pip install netaddr
 
 Role Variables
 --------------
