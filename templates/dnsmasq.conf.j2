@@ -1,0 +1,12 @@
+server=8.8.8.8
+server=8.8.4.4
+
+listen-address=127.0.0.1,{{ ansible_default_ipv4.address }}
+
+domain={{ ansible_domain }}
+
+mx-host={{ ansible_domain }},{{ ansible_fqdn }},1
+
+addn-hosts=/etc/hosts
+
+cache-size=9500
