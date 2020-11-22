@@ -2,7 +2,7 @@
 # tasks file for ansible-zimbra-single
 - name: configure static networking
   shell: >
-    nmcli con mod "{{ ansible_default_ipv4.interface }}" ipv4.method manual ipv4.addresses "{{ (ansible_default_ipv4.address + '/' + ansible_default_ipv4.netmask) | ipaddr('host/prefix') }}" ipv4.gateway "{{ ansible_default_ipv4.gateway }}" &&
+    nmcli con mod "{{ ansible_default_ipv4.interface }}" ipv4.method manual ipv4.addresses "{{ (ansible_default_ipv4.address + '/' + ansible_default_ipv4.netmask) | ansible.netcommon.ipaddr('host/prefix') }}" ipv4.gateway "{{ ansible_default_ipv4.gateway }}" &&
     nmcli con mod "{{ ansible_default_ipv4.interface }}" ipv4.dns "{{ ansible_dns.nameservers|join(' ') }}" &&
     nmcli con reload &&
     nmcli con up "{{ ansible_default_ipv4.interface }}"
