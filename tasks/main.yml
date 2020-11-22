@@ -78,17 +78,15 @@
     - 443/tcp
     - 7071/tcp
 
-- name: check postfix rpm
-  command: rpm -q postfix
-  register: postfix_rpm
-  ignore_errors: yes
+- name: gather package facts
+  package_facts:
 
 - name: disable postfix
   service:
     name: postfix
     state: stopped
     enabled: no
-  when: postfix_rpm.rc == 0
+  when: "'postfix' in ansible_facts.packages"
 
 - name: install dnsmasq
   yum:
