@@ -1,0 +1,26 @@
+[zimbra-smtp]
+enabled = true
+filter = zimbra-smtp
+port = 25,465,587
+logpath = /var/log/zimbra.log
+maxretry = 3
+findtime = 600
+bantime = 3600
+
+[zimbra-webmail]
+enabled = true
+filter = zimbra-webmail
+port = 80,443
+logpath = /opt/zimbra/log/mailbox.log
+maxretry = 3
+findtime = 600
+bantime = 3600
+
+[zimbra-admin]
+enabled = true
+filter = zimbra-admin
+port = 7071,9071
+logpath = /opt/zimbra/log/mailbox.log
+maxretry = 3
+findtime = 600
+bantime = 3600
