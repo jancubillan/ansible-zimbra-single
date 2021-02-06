@@ -107,6 +107,14 @@
     enabled: no
   when: "'postfix' in ansible_facts.packages"
 
+- name: configure static networking
+  block:
+    - template:
+        src: 01-netcfg.yaml.j2
+        dest: /etc/netplan/01-netcfg.yaml
+
+    - command: netplan apply
+
 - name: disable systemd-resolved
   block:
     - service:
