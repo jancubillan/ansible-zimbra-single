@@ -5,6 +5,8 @@ listen-address=127.0.0.1,{{ ansible_default_ipv4.address }}
 
 domain={{ ansible_domain }}
 
+host-record={{ ansible_fqdn }},{{ ansible_default_ipv4.address }}
+
 mx-host={{ ansible_domain }},{{ ansible_fqdn }},1
 
 addn-hosts=/etc/hosts
