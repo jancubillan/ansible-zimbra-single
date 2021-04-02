@@ -7,7 +7,8 @@ Requirements
 ------------
 
 1) Must be a fresh CentOS 8 or Ubuntu 18.04 minimal installation
-2) Ansible control node must have the "netaddr" Python module installed
+2) Static network configuration must be already set
+3) Ansible control node must have the "netaddr" Python module installed
 
 Installing Ansible and "netaddr" module using PIP
 -------------------------------------------------
@@ -40,15 +41,11 @@ Create playbook similar below:
 
 Then run as follows:
 
-    # ansible-playbook site.yml --tags centos
-    OR
-    # ansible-playbook site.yml --tags ubuntu
+    # ansible-playbook site.yml
 
 If you want to setup Zimbra 9 instead:
 
-    # ansible-playbook site.yml --tags zimbra9-centos
-    OR
-    # ansible-playbook site.yml --tags zimbra9-ubuntu
+    # ansible-playbook site.yml --tags zimbra9
 
 Other Features
 --------------
