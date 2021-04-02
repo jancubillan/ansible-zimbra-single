@@ -41,7 +41,7 @@ Create playbook similar below:
 
 Then run as follows:
 
-    # ansible-playbook site.yml
+    # ansible-playbook site.yml --tags install
 
 If you want to setup Zimbra 9 instead:
 
