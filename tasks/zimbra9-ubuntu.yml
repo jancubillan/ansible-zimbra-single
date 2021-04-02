@@ -1,0 +1,291 @@
+---
+- name: install utilities and dependencies
+  apt:
+    name:
+      - bash-completion
+      - tmux
+      - telnet
+      - dnsutils
+      - tcpdump
+      - wget
+      - lsof
+      - rsync
+    state: present
+    update_cache: yes
+
+- name: perform update
+  apt:
+    upgrade: dist
+    update_cache: yes
+
+- name: configure time zone
+  community.general.timezone:
+    name: "{{ zimbra_timezone }}"
+
+- name: disable systemd-timesyncd
+  block:
+    - service: 
+        name: systemd-timesyncd
+        state: stopped
+        enabled: no
+
+    - command: systemctl mask systemd-timesyncd
+
+- name: install chrony
+  apt:
+    name: chrony
+    state: present
+    update_cache: yes
+
+- name: configure hostname
+  hostname:
+    name: "{{ zimbra_fqdn }}"
+
+- name: configure hosts file
+  template:
+    src: hosts.j2
+    dest: /etc/hosts
+
+- name: gather facts
+  setup:
+
+- name: fix hosts file
+  block:
+    - file:
+        path: /etc/hosts
+        state: absent
+
+    - blockinfile:
+        path: /etc/hosts
+        create: yes
+        block: |
+          127.0.0.1 localhost.localdomain localhost
+          {{ ansible_default_ipv4.address }} {{ ansible_fqdn }} {{ ansible_hostname }}
+
+- name: disable ufw
+  block:
+    - command: ufw disable
+
+    - service:
+        name: ufw
+        state: stopped
+        enabled: no
+
+    - command: systemctl mask ufw
+
+- name: install firewalld
+  apt:
+    name: firewalld
+    state: present
+    update_cache: yes
+
+- name: configure firewall
+  ansible.posix.firewalld:
+    port: "{{ item }}"
+    permanent: yes
+    state: enabled
+    immediate: yes
+  loop:
+    - 25/tcp
+    - 465/tcp
+    - 587/tcp
+    - 110/tcp
+    - 995/tcp
+    - 143/tcp
+    - 993/tcp
+    - 80/tcp
+    - 443/tcp
+    - 7071/tcp
+
+- name: gather package facts
+  package_facts:
+
+- name: disable postfix
+  service:
+    name: postfix
+    state: stopped
+    enabled: no
+  when: "'postfix' in ansible_facts.packages"
+
+- name: configure static networking
+  block:
+    - template:
+        src: 01-netcfg.yaml.j2
+        dest: /etc/netplan/01-netcfg.yaml
+
+    - command: netplan apply
+
+- name: disable systemd-resolved
+  block:
+    - service:
+        name: systemd-resolved
+        state: stopped
+        enabled: no
+
+    - command: systemctl mask systemd-resolved
+
+    - file:
+        path: /etc/resolv.conf
+        state: absent
+
+    - blockinfile:
+        path: /etc/resolv.conf
+        create: yes
+        block: |
+          search {{ ansible_domain }}
+          nameserver 8.8.8.8
+          nameserver 8.8.4.4
+
+- name: install dnsmasq
+  apt:
+    name: dnsmasq
+    state: present
+    update_cache: yes
+
+- name: configure dnsmasq.conf
+  template:
+    src: dnsmasq.conf.j2
+    dest: /etc/dnsmasq.conf
+  notify: restart dnsmasq
+
+- meta: flush_handlers
+
+- name: configure local dns
+  block:
+    - file:
+        path: /etc/resolv.conf
+        state: absent
+
+    - blockinfile:
+        path: /etc/resolv.conf
+        create: yes
+        block: |
+          search {{ ansible_domain }}
+          nameserver 127.0.0.1
+
+- name: download zimbra installer
+  get_url:
+    url: https://download.zextras.com/zcs-9.0.0_OSE_UBUNTU18_latest-zextras.tgz
+    dest: /root
+
+- name: extract zimbra installer
+  unarchive:
+    src: /root/zcs-9.0.0_OSE_UBUNTU18_latest-zextras.tgz
+    dest: /root
+    remote_src: yes
+
+- name: configure answer file
+  template:
+    src: zimbra_answers.txt.j2
+    dest: /tmp/zimbra_answers.txt
+
+- name: capture random chars 1
+  shell: date | md5sum | cut -c 1-9 
+  register: zimbra_random_chars_1
+
+- name: wait 3 seconds
+  pause:
+    seconds: 3
+
+- name: capture random chars 2
+  shell: date | md5sum | cut -c 1-14
+  register: zimbra_random_chars_2
+
+- name: capture mailboxd memory
+  shell: free -m | awk 'NR==2{printf "%.0f\n", $2*0.25 }'
+  register: zimbra_mailboxd_memory
+
+- name: capture system memory
+  shell: free -h | awk 'NR==2{printf "%.0f\n", $2 }'
+  register: zimbra_system_memory
+
+- name: configure config file
+  template:
+    src: zimbra_config.txt.j2
+    dest: /tmp/zimbra_config.txt
+
+- name: run zimbra installer phase 1
+  shell: ./install.sh -s < /tmp/zimbra_answers.txt
+  args:
+    chdir: /root/zimbra-installer/
+
+- name: run zimbra installer phase 2
+  command: /opt/zimbra/libexec/zmsetup.pl -c /tmp/zimbra_config.txt
+
+- name: set trusted ip
+  shell: ./zmprov mcf +zimbraMailTrustedIP 127.0.0.1 +zimbraMailTrustedIP "{{ ansible_default_ipv4.address }}"
+  args:
+    chdir: /opt/zimbra/bin
+  become: yes
+  become_user: zimbra
+  become_flags: -i
+  ignore_errors: yes
+
+- name: restart zimbra services
+  shell: ./zmcontrol restart
+  args:
+    chdir: /opt/zimbra/bin
+  become: yes
+  become_user: zimbra
+  become_flags: -i
+  ignore_errors: yes
+
+- name: install fail2ban
+  apt:
+    name: fail2ban
+    state: present
+    update_cache: yes
+
+- name: configure fail2ban jail.local
+  template:
+    src: jail.local.j2
+    dest: /etc/fail2ban/jail.local
+    owner: root
+    group: root
+    mode: 0644
+  notify: restart fail2ban
+
+- name: configure fail2ban jail zimbra.local
+  template:
+    src: zimbra.local.j2
+    dest: /etc/fail2ban/jail.d/zimbra.local
+    owner: root
+    group: root
+    mode: 0644
+  notify: restart fail2ban
+
+- name: configure fail2ban jail sshd.local
+  template:
+    src: sshd.local.j2
+    dest: /etc/fail2ban/jail.d/sshd.local
+    owner: root
+    group: root
+    mode: 0644
+  notify: restart fail2ban
+
+- name: configure fail2ban filter zimbra-webmail.conf
+  template:
+    src: zimbra-webmail.conf.j2
+    dest: /etc/fail2ban/filter.d/zimbra-webmail.conf
+    owner: root
+    group: root
+    mode: 0644
+  notify: restart fail2ban
+
+- name: configure fail2ban filter zimbra-smtp.conf
+  template:
+    src: zimbra-smtp.conf.j2
+    dest: /etc/fail2ban/filter.d/zimbra-smtp.conf
+    owner: root
+    group: root
+    mode: 0644
+  notify: restart fail2ban
+
+- name: configure fail2ban filter zimbra-admin.conf
+  template:
+    src: zimbra-admin.conf.j2
+    dest: /etc/fail2ban/filter.d/zimbra-admin.conf
+    owner: root
+    group: root
+    mode: 0644
+  notify: restart fail2ban

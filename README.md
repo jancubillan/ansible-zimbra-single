@@ -1,7 +1,7 @@
 ansible-zimbra-single
 =====================
 
-This role automates the process of installing single-server Zimbra Open Source Edition v8.8.15 on CentOS 8 and Ubuntu 18.04.
+This role automates the process of installing single-server Zimbra Open Source Edition v8.8.15 and v9.0.0 on CentOS 8 and Ubuntu 18.04.
 
 Requirements
 ------------
@@ -20,7 +20,7 @@ Role Variables
 
     zimbra_timezone: Asia/Singapore
     zimbra_fqdn: mail.example.com
-    zimbra_admin_password: ansible@zimbra2020
+    zimbra_admin_password: zimbra4ever
 
 Example Playbook
 ----------------
@@ -34,7 +34,7 @@ Create playbook similar below:
       vars:
         zimbra_timezone: Asia/Singapore
         zimbra_fqdn: mail.example.com
-        zimbra_admin_password: ansible@zimbra2020
+        zimbra_admin_password: zimbra4ever
       roles:
         - ansible-zimbra-single
 
@@ -43,6 +43,22 @@ Then run as follows:
     # ansible-playbook site.yml --tags centos
     OR
     # ansible-playbook site.yml --tags ubuntu
+
+If you want to setup Zimbra 9 instead:
+
+    # ansible-playbook site.yml --tags zimbra9-centos
+    OR
+    # ansible-playbook site.yml --tags zimbra9-ubuntu
+
+Other Features
+--------------
+
+The role also installs Fail2Ban configured with predetermined jails and filters. You can view them in /etc/fail2ban directory.
+
+    # fail2ban-client status
+      Status
+      |- Number of jail:	4
+      `- Jail list:	sshd, zimbra-admin, zimbra-smtp, zimbra-webmail
 
 License
 -------

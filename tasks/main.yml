@@ -13,3 +13,17 @@
     - ansible_distribution == "Ubuntu"
     - ansible_distribution_version == "18.04"
   tags: ubuntu
+
+- name: import zimbra9-centos.yml
+  import_tasks: zimbra9-centos.yml
+  when:
+    - ansible_distribution == "CentOS"
+    - ansible_distribution_major_version == "8"
+  tags: zimbra9-centos
+
+- name: import zimbra9-ubuntu.yml
+  import_tasks: zimbra9-ubuntu.yml
+  when:
+    - ansible_distribution == "Ubuntu"
+    - ansible_distribution_version == "18.04"
+  tags: zimbra9-ubuntu
