@@ -81,7 +81,11 @@ zimbraFeatureBriefcasesEnabled="Enabled"
 zimbraFeatureTasksEnabled="Enabled"
 zimbraIPMode="ipv4"
 zimbraMailProxy="TRUE"
+{% if ansible_default_ipv4.address | ansible.netcommon.ipaddr('public') %}
+zimbraMtaMyNetworks="127.0.0.0/8 [::1]/128"
+{% else %}
 zimbraMtaMyNetworks="127.0.0.0/8 [::1]/128 {{ (ansible_default_ipv4.address + '/' + ansible_default_ipv4.netmask) | ansible.netcommon.ipaddr('network/prefix') }}"
+{% endif %}
 zimbraPrefTimeZoneId="{{ zimbra_timezone }}"
 zimbraReverseProxyLookupTarget="TRUE"
 zimbraVersionCheckNotificationEmail="admin@{{ ansible_domain }}"
