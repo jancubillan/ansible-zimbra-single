@@ -207,7 +207,7 @@
 - name: run zimbra installer phase 1
   shell: ./install.sh -s < /tmp/zimbra_answers.txt
   args:
-    chdir: /root/zimbra-installer/
+    chdir: /root/zcs-9.0.0_ZEXTRAS_20211118.UBUNTU18_64.20211115190340/
 
 - name: run zimbra installer phase 2
   command: /opt/zimbra/libexec/zmsetup.pl -c /tmp/zimbra_config.txt
