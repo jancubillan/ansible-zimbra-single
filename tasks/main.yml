@@ -34,3 +34,10 @@
     - ansible_distribution == "Ubuntu"
     - ansible_distribution_version == "18.04"
   tags: zimbra9
+
+- name: import zimbra9-ubuntu-2004.yml
+  import_tasks: zimbra9-ubuntu-2004.yml
+  when:
+    - ansible_distribution == "Ubuntu"
+    - ansible_distribution_version == "20.04"
+  tags: zimbra9

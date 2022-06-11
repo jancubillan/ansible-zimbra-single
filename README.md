@@ -6,9 +6,9 @@ This role automates the process of installing single-server Zimbra Open Source E
 Requirements
 ------------
 
-1) Must be a fresh CentOS 8 or Ubuntu 18.04 or Ubuntu 20.04 minimal installation
-2) Static network configuration must be already set
-3) Ansible control node must have the "netaddr" Python module installed
+1) Must be a fresh CentOS 8, Ubuntu 18.04, or Ubuntu 20.04 minimal installation.
+2) Static network configuration must be already set.
+3) Ansible control node must have the "netaddr" Python module installed.
 
 Installing Ansible and "netaddr" module using PIP
 -------------------------------------------------
@@ -46,8 +46,6 @@ Then run as follows:
 If you want to setup Zimbra 9 instead:
 
     # ansible-playbook site.yml --tags zimbra9
-
-NOTE: THERE IS NO ZIMBRA OSE 9 BUILD YET FOR UBUNTU 20.04
 
 Other Features
 --------------
