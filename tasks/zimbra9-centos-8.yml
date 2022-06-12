@@ -114,13 +114,12 @@
 
 - name: download zimbra installer
   get_url:
-    url: https://files.zimbra.com/downloads/8.8.15_GA/zcs-8.8.15_GA_3869.RHEL7_64.20190918004220.tgz
+    url: https://download.zextras.com/zcs-9.0.0_OSE_RHEL8_latest-zextras.tgz
     dest: /root
-    checksum: sha256:https://files.zimbra.com/downloads/8.8.15_GA/zcs-8.8.15_GA_3869.RHEL7_64.20190918004220.tgz.sha256
 
 - name: extract zimbra installer
   unarchive:
-    src: /root/zcs-8.8.15_GA_3869.RHEL7_64.20190918004220.tgz
+    src: /root/zcs-9.0.0_OSE_RHEL8_latest-zextras.tgz
     dest: /root
     remote_src: yes
 
@@ -157,7 +156,7 @@
 - name: run zimbra installer phase 1
   shell: ./install.sh -s < /tmp/zimbra_answers.txt
   args:
-    chdir: /root/zcs-8.8.15_GA_3869.RHEL7_64.20190918004220/
+    chdir: /root/zcs-9.0.0_ZEXTRAS_20220402.RHEL8_64.20220419075929/
 
 - name: run zimbra installer phase 2
   command: /opt/zimbra/libexec/zmsetup.pl -c /tmp/zimbra_config.txt

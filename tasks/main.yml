@@ -4,6 +4,13 @@
   import_tasks: centos.yml
   when:
     - ansible_distribution == "CentOS"
+    - ansible_distribution_major_version == "7"
+  tags: install
+
+- name: import centos-8.yml
+  import_tasks: centos.yml
+  when:
+    - ansible_distribution == "CentOS"
     - ansible_distribution_major_version == "8"
   tags: install
 
@@ -23,6 +30,13 @@
 
 - name: import zimbra9-centos.yml
   import_tasks: zimbra9-centos.yml
+  when:
+    - ansible_distribution == "CentOS"
+    - ansible_distribution_major_version == "7"
+  tags: zimbra9
+
+- name: import zimbra9-centos-8.yml
+  import_tasks: zimbra9-centos-8.yml
   when:
     - ansible_distribution == "CentOS"
     - ansible_distribution_major_version == "8"
