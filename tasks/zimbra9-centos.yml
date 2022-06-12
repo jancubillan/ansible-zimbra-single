@@ -97,7 +97,7 @@
     src: dnsmasq.conf.j2
     dest: /etc/dnsmasq.conf
     owner: root
-    group: dnsmasq
+    group: root
     mode: 0644
 
 - name: start and enable dnsmasq
