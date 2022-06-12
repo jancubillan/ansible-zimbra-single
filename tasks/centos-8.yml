@@ -184,6 +184,7 @@
   yum:
     name: http://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm
     state: present
+    disable_gpg_check: yes
 
 - name: install fail2ban
   yum:
