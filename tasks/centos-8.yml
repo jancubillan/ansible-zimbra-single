@@ -182,7 +182,7 @@
 
 - name: install epel
   yum:
-    name: epel-release
+    name: http://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm
     state: present
 
 - name: install fail2ban
