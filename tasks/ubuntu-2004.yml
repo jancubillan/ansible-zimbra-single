@@ -111,7 +111,7 @@
   block:
     - template:
         src: 01-netcfg.yaml.j2
-        dest: /etc/netplan/01-netcfg.yaml
+        dest: /etc/netplan/00-installer-config.yaml
 
     - command: netplan apply
 
