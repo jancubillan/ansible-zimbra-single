@@ -1,12 +1,12 @@
 ansible-zimbra-single
 =====================
 
-This role automates the process of installing single-server Zimbra Open Source Edition v8.8.15 and v9.0.0 on CentOS 8, Ubuntu 18.04, and Ubuntu 20.04.
+This role automates the process of installing single-server Zimbra Open Source Edition v8.8.15 and v9.0.0 on CentOS 7, CentOS 8, Ubuntu 18.04, and Ubuntu 20.04.
 
 Requirements
 ------------
 
-1) Must be a fresh CentOS 8, Ubuntu 18.04, or Ubuntu 20.04 minimal installation.
+1) Must be a fresh CentOS 7, CentOS 8, Ubuntu 18.04, or Ubuntu 20.04 minimal installation.
 2) Static network configuration must be already set.
 3) Ansible control node must have the "netaddr" Python module installed.
 
