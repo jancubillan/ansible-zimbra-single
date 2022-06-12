@@ -8,7 +8,7 @@
   tags: install
 
 - name: import centos-8.yml
-  import_tasks: centos.yml
+  import_tasks: centos-8.yml
   when:
     - ansible_distribution == "CentOS"
     - ansible_distribution_major_version == "8"
