@@ -5,28 +5,36 @@
   when:
     - ansible_distribution == "CentOS"
     - ansible_distribution_major_version == "7"
-  tags: install
+  tags: 
+    - never
+    - install
 
 - name: import centos-8.yml
   import_tasks: centos-8.yml
   when:
     - ansible_distribution == "CentOS"
     - ansible_distribution_major_version == "8"
-  tags: install
+  tags: 
+    - never
+    - install
 
 - name: import ubuntu.yml
   import_tasks: ubuntu.yml
   when:
     - ansible_distribution == "Ubuntu"
     - ansible_distribution_version == "18.04"
-  tags: install
+  tags: 
+    - never
+    - install
 
 - name: import ubuntu-2004.yml
   import_tasks: ubuntu-2004.yml
   when:
     - ansible_distribution == "Ubuntu"
     - ansible_distribution_version == "20.04"
-  tags: install
+  tags: 
+    - never
+    - install
 
 - name: import zimbra9-centos.yml
   import_tasks: zimbra9-centos.yml
@@ -40,18 +48,24 @@
   when:
     - ansible_distribution == "CentOS"
     - ansible_distribution_major_version == "8"
-  tags: zimbra9
+  tags: 
+    - never
+    -  zimbra9
 
 - name: import zimbra9-ubuntu.yml
   import_tasks: zimbra9-ubuntu.yml
   when:
     - ansible_distribution == "Ubuntu"
     - ansible_distribution_version == "18.04"
-  tags: zimbra9
+  tags: 
+    - never
+    - zimbra9
 
 - name: import zimbra9-ubuntu-2004.yml
   import_tasks: zimbra9-ubuntu-2004.yml
   when:
     - ansible_distribution == "Ubuntu"
     - ansible_distribution_version == "20.04"
-  tags: zimbra9
+  tags: 
+    - never
+    - zimbra9
