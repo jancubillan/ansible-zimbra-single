@@ -6,7 +6,7 @@ This role automates the process of installing single-server Zimbra Open Source E
 Requirements
 ------------
 
-1) Must be a fresh CentOS 7, CentOS 8, Ubuntu 18.04, or Ubuntu 20.04 minimal installation.
+1) Must be a fresh CentOS 7, CentOS 8, Rocky Linux 8, Ubuntu 18.04, or Ubuntu 20.04 minimal installation.
 2) Static network configuration must be already set.
 3) Ansible control node must have the "netaddr" Python module installed.
 
@@ -25,6 +25,8 @@ Role Variables
 
 Example Playbook
 ----------------
+
+NOTE: ANSIBLE MANAGED NODE TESTED TO RUN AS ROOT ONLY!
 
 Create playbook similar below:
 
@@ -65,5 +67,5 @@ MIT License
 Author Information
 ------------------
 
-Author: Jan Cubillan<br/>
-GitHub: https://github.com/jancubillan<br/>
+- Author: Jan Cubillan
+- GitHub: https://github.com/jancubillan
