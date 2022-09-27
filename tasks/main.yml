@@ -11,9 +11,8 @@
 
 - name: import centos-8.yml
   import_tasks: centos-8.yml
-  when:
-    - ansible_distribution == "CentOS"
-    - ansible_distribution_major_version == "8"
+  when: (ansible_distribution == "CentOS" and ansible_distribution_major_version == "8") or
+        (ansible_distribution == "Rocky" and ansible_distribution_major_version == "8")
   tags: 
     - never
     - install
@@ -45,9 +44,8 @@
 
 - name: import zimbra9-centos-8.yml
   import_tasks: zimbra9-centos-8.yml
-  when:
-    - ansible_distribution == "CentOS"
-    - ansible_distribution_major_version == "8"
+  when: (ansible_distribution == "CentOS" and ansible_distribution_major_version == "8") or
+        (ansible_distribution == "Rocky" and ansible_distribution_major_version == "8")
   tags: 
     - never
     -  zimbra9

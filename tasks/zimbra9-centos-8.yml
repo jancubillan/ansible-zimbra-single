@@ -156,7 +156,7 @@
 - name: run zimbra installer phase 1
   shell: ./install.sh -s < /tmp/zimbra_answers.txt
   args:
-    chdir: /root/zcs-9.0.0_ZEXTRAS_20220402.RHEL8_64.20220419075929/
+    chdir: /root/zcs-9.0.0_ZEXTRAS_20220713.RHEL8_64.20220705100452/
 
 - name: run zimbra installer phase 2
   command: /opt/zimbra/libexec/zmsetup.pl -c /tmp/zimbra_config.txt
